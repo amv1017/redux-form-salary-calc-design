@@ -8,6 +8,10 @@
   font-family: 'Futura PT Medium';
 }
 
+body {
+  background: gray;
+}
+
 .font-bold {
   font-family: 'Futura PT Bold';
 }
@@ -16,7 +20,50 @@
   font-size: 20px;
 }
 
+.app {
+  background: #fff;
+  margin: 25px;
+}
+
+.calc {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+input[type='radio'] {
+  -webkit-appearance: none;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #aaa;
+  height: 10px;
+  margin: 0 10px;
+  outline: none;
+  position: relative;
+  width: 10px;
+}
+
+input[type='radio']::before {
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  content: '';
+  display: block;
+  margin: 15%; // 2*margin + width = 100%
+  position: absolute;
+  width: 70%;
+}
+
+input[type='radio']:checked::before {
+  background: #000;
+}
+
 .tlt {
+  z-index: 1000;
   position: relative;
   background-color: $hint-color;
   padding: 19px 17px;
@@ -109,7 +156,7 @@ input:checked + .slide:before {
 }
 
 .details {
-  background: yellow;
+  background: $det-color;
   width: 300px;
   height: 200px;
 }

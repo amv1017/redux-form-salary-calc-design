@@ -6,66 +6,67 @@ import { ISumm, PaymentPeriod } from './ISumm'
 import { _SALARY_FORM } from './data'
 
 let SalaryCalcForm = (props: ISumm | any) => {
-  const { handleSubmit, paymentPeriod, hasNDFL } = props
+  const { handleSubmit, paymentPeriod, hasNDFL, salary } = props
 
   useEffect(() => {
     console.log(props.hasNDFL)
   }, [props])
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <label>
-          <Field
-            name="paymentPeriod"
-            component="input"
-            type="radio"
-            value={PaymentPeriod.Month}
-          />
-          Оклад за месяц
-        </label>
+    <form className="calc" onSubmit={handleSubmit}>
+      <p>Сумма</p>
 
-        <label style={{ display: 'flex', flexDirection: 'row' }}>
-          <Field
-            name="paymentPeriod"
-            component="input"
-            type="radio"
-            value={PaymentPeriod.Minimal}
-          />
-          <div>МРОТ</div>
-          <Hint />
-        </label>
+      <label>
+        <Field
+          name="paymentPeriod"
+          component="input"
+          type="radio"
+          value={PaymentPeriod.Month}
+        />
+        <div className="font-bold">Оклад за месяц</div>
+      </label>
 
-        <label>
-          <Field
-            name="paymentPeriod"
-            component="input"
-            type="radio"
-            value={PaymentPeriod.Day}
-          />
-          Оплата за день
-        </label>
+      <label style={{ display: 'flex', flexDirection: 'row' }}>
+        <Field
+          name="paymentPeriod"
+          component="input"
+          type="radio"
+          value={PaymentPeriod.Minimal}
+        />
+        <div>МРОТ</div>
+        <Hint />
+      </label>
 
-        <label>
-          <Field
-            name="paymentPeriod"
-            component="input"
-            type="radio"
-            value={PaymentPeriod.Hour}
-          />
-          Оплата за час
-        </label>
-      </div>
+      <label>
+        <Field
+          name="paymentPeriod"
+          component="input"
+          type="radio"
+          value={PaymentPeriod.Day}
+        />
+        Оплата за день
+      </label>
+
+      <label>
+        <Field
+          name="paymentPeriod"
+          component="input"
+          type="radio"
+          value={PaymentPeriod.Hour}
+        />
+        Оплата за час
+      </label>
 
       <div className="slider">
         <div className={hasNDFL ? 'checked-title' : ''}>{'Указать с НДФЛ'}</div>
         <label className="switch">
           <Field name="hasNDFL" component="input" type="checkbox" />
-
           <div className="slide"></div>
         </label>
         <div className={!hasNDFL ? 'checked-title' : ''}>{'Без НДФЛ'}</div>
       </div>
+
+      <Field name="salary" type="number" component="input" value={salary} />
     </form>
   )
 }
@@ -73,6 +74,12 @@ let SalaryCalcForm = (props: ISumm | any) => {
 //@ts-ignore
 SalaryCalcForm = reduxForm({
   form: _SALARY_FORM,
+  initialValues: {
+    paymentPeriod: PaymentPeriod.Month,
+    hasNDFL: true,
+    handleSubmit: () => {},
+    salary: null,
+  },
 })(SalaryCalcForm)
 
 const selector = formValueSelector(_SALARY_FORM)
@@ -81,9 +88,11 @@ const selector = formValueSelector(_SALARY_FORM)
 SalaryCalcForm = connect((state: ISumm) => {
   const paymentPeriod = selector(state, 'paymentPeriod')
   const hasNDFL = selector(state, 'hasNDFL')
+  const salary = selector(state, 'salary')
   return {
     paymentPeriod,
     hasNDFL,
+    salary,
   }
 })(SalaryCalcForm)
 

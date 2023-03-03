@@ -1,24 +1,23 @@
-import {useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import SalaryCalcForm from './SalaryCalcForm'
 import { getFormValues } from 'redux-form'
 import { _SALARY_FORM } from './data'
+import { ISumm, PaymentPeriod } from './ISumm'
+import SalaryDetails from './SalaryDetails'
 
-const showResults = () => {
-  
-}
+const App = () => {
+  const formValues = useSelector(
+    (state: ISumm) => getFormValues(_SALARY_FORM)(state) as ISumm
+  )
 
-function App() {
-  const formValues = useSelector((state: any) => getFormValues(_SALARY_FORM)(state))
-
-  useEffect(() => {
-    console.log('formValues : ', formValues)
-  }, [formValues])
-  
   return (
-    <>
-      <SalaryCalcForm onSubmit={showResults} />
-    </>
+    <div className="app">
+      <SalaryCalcForm />
+
+      {formValues?.paymentPeriod === PaymentPeriod.Month && (
+        <SalaryDetails salary={formValues?.salary} hasNDFL={formValues?.hasNDFL} />
+      )}
+    </div>
   )
 }
 
