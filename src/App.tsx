@@ -1,10 +1,13 @@
+import SalaryCalcForm from './SalaryCalcForm'
+
+const showResults = () => {
+  console.log('show results')
+}
+
 function App() {
   return (
     <>
-      <h1>Оклад за месяц</h1>
-      <h1>МРОТ</h1>
-      <h1>Оплата за день</h1>
-      <h1>Оплата за час</h1>
+      <SalaryCalcForm onSubmit={showResults} />
     </>
   )
 }
