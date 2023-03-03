@@ -1,21 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Field, getFormValues } from 'redux-form'
+import { useSelector } from 'react-redux'
+import { _SALARY_FORM } from './data'
 
 const Slider = ({
-  checked,
-  onChange,
   checkedTitle,
   uncheckedTitle,
 }: {
-  checked: boolean
-  onChange: (e: React.SyntheticEvent | void) => void
   checkedTitle: string
   uncheckedTitle: string
 }) => {
+
+  const formValues = useSelector((state: any) => getFormValues(_SALARY_FORM)(state))
+
+  console.log('formValues : ',formValues)
+  
+  const [checked, setChecked] = useState<boolean>(false)
+
+
   return (
     <div className="slider">
       <div className={checked ? 'checked-title' : ''}>{checkedTitle}</div>
       <label className="switch">
-        <input type="checkbox" checked={checked} onChange={onChange} />
+        <Field name="paymentPeriod" component="input" type="checkbox" />
+
         <div className="slide"></div>
       </label>
       <div className={!checked ? 'checked-title' : ''}>{uncheckedTitle}</div>

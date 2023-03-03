@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { Field, reduxForm, formValueSelector } from 'redux-form'
+import { Field, reduxForm, formValueSelector, FormSection } from 'redux-form'
 import Hint from './Hint'
 import { ISumm, PaymentPeriod } from './ISumm'
-import Slider from './Slider'
+import { _SALARY_FORM } from './data'
 
 let SalaryCalcForm = (props: ISumm | any) => {
-  const { handleSubmit, paymentPeriod } = props
-
-  const [checked, setChecked] = useState<boolean>(false)
+  const { handleSubmit, paymentPeriod, hasNDFL } = props
 
   useEffect(() => {
-    console.log(props.paymentPeriod)
+    console.log(props.hasNDFL)
   }, [props])
 
   return (
@@ -59,28 +57,33 @@ let SalaryCalcForm = (props: ISumm | any) => {
         </label>
       </div>
 
-      <Slider
-        checked={checked}
-        onChange={() => setChecked(!checked)}
-        checkedTitle={'Указать с НДФЛ'}
-        uncheckedTitle={'Без НДФЛ'}
-      />
+      <div className="slider">
+        <div className={hasNDFL ? 'checked-title' : ''}>{'Указать с НДФЛ'}</div>
+        <label className="switch">
+          <Field name="hasNDFL" component="input" type="checkbox" />
+
+          <div className="slide"></div>
+        </label>
+        <div className={!hasNDFL ? 'checked-title' : ''}>{'Без НДФЛ'}</div>
+      </div>
     </form>
   )
 }
 
 //@ts-ignore
 SalaryCalcForm = reduxForm({
-  form: 'selectingFormValues',
+  form: _SALARY_FORM,
 })(SalaryCalcForm)
 
-const selector = formValueSelector('selectingFormValues')
+const selector = formValueSelector(_SALARY_FORM)
 
 //@ts-ignore
 SalaryCalcForm = connect((state: ISumm) => {
   const paymentPeriod = selector(state, 'paymentPeriod')
+  const hasNDFL = selector(state, 'hasNDFL')
   return {
     paymentPeriod,
+    hasNDFL,
   }
 })(SalaryCalcForm)
 
