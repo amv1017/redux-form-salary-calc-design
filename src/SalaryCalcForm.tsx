@@ -8,14 +8,8 @@ import { _SALARY_FORM } from './data'
 let SalaryCalcForm = (props: ISumm | any) => {
   const { handleSubmit, paymentPeriod, hasNDFL, salary } = props
 
-  useEffect(() => {
-    console.log(props.hasNDFL)
-  }, [props])
-
   return (
     <form className="calc" onSubmit={handleSubmit}>
-      <p>Сумма</p>
-
       <label>
         <Field
           name="paymentPeriod"
@@ -26,14 +20,14 @@ let SalaryCalcForm = (props: ISumm | any) => {
         <div className="font-bold">Оклад за месяц</div>
       </label>
 
-      <label style={{ display: 'flex', flexDirection: 'row' }}>
+      <label>
         <Field
           name="paymentPeriod"
           component="input"
           type="radio"
           value={PaymentPeriod.Minimal}
         />
-        <div>МРОТ</div>
+        <div className="font-bold">МРОТ</div>
         <Hint />
       </label>
 
@@ -44,7 +38,7 @@ let SalaryCalcForm = (props: ISumm | any) => {
           type="radio"
           value={PaymentPeriod.Day}
         />
-        Оплата за день
+        <div className="font-bold">Оплата за день</div>
       </label>
 
       <label>
@@ -54,19 +48,32 @@ let SalaryCalcForm = (props: ISumm | any) => {
           type="radio"
           value={PaymentPeriod.Hour}
         />
-        Оплата за час
+        <div className="font-bold">Оплата за час</div>
       </label>
 
-      <div className="slider">
-        <div className={hasNDFL ? 'checked-title' : ''}>{'Указать с НДФЛ'}</div>
+      <div className="slider font-12px">
+        <div className={`font-bold ${hasNDFL && 'checked-title'}`}>
+          {'Указать с НДФЛ'}
+        </div>
         <label className="switch">
           <Field name="hasNDFL" component="input" type="checkbox" />
           <div className="slide"></div>
         </label>
-        <div className={!hasNDFL ? 'checked-title' : ''}>{'Без НДФЛ'}</div>
+        <div className={`font-bold ${!hasNDFL && 'checked-title'}`}>
+          {'Без НДФЛ'}
+        </div>
       </div>
 
-      <Field name="salary" type="number" component="input" value={salary} />
+      <div className="font-bold">
+        <Field
+          name="salary"
+          type="number"
+          component="input"
+          value={salary}
+          className="summ"
+        />
+        <b>₽</b>
+      </div>
     </form>
   )
 }

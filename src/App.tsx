@@ -12,11 +12,16 @@ const App = () => {
 
   return (
     <div className="app">
+      <div className="header font-12px">Сумма</div>
       <SalaryCalcForm />
 
-      {formValues?.paymentPeriod === PaymentPeriod.Month && (
-        <SalaryDetails salary={formValues?.salary} hasNDFL={formValues?.hasNDFL} />
-      )}
+      {formValues?.paymentPeriod === PaymentPeriod.Month &&
+        formValues?.salary && (
+          <SalaryDetails
+            salary={formValues?.salary}
+            hasNDFL={formValues?.hasNDFL}
+          />
+        )}
     </div>
   )
 }

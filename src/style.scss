@@ -16,6 +16,10 @@ body {
   font-family: 'Futura PT Bold';
 }
 
+.font-12px {
+  font-size: 12px;
+}
+
 .font-big {
   font-size: 20px;
 }
@@ -23,12 +27,20 @@ body {
 .app {
   background: #fff;
   margin: 25px;
+  width: 400px;
+  height: 350px;
+}
+
+.header {
+  color: #777;
+  margin-bottom: 8px;
 }
 
 .calc {
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-left: 6px;
 
   label {
     display: flex;
@@ -42,79 +54,103 @@ input[type='radio'] {
   border-radius: 50%;
   box-shadow: 0 0 0 1px #aaa;
   height: 10px;
-  margin: 0 10px;
+  margin: 0 8px;
   outline: none;
   position: relative;
-  width: 10px;
-}
-
-input[type='radio']::before {
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  content: '';
-  display: block;
-  margin: 15%; // 2*margin + width = 100%
-  position: absolute;
-  width: 70%;
-}
-
-input[type='radio']:checked::before {
-  background: #000;
-}
-
-.tlt {
-  z-index: 1000;
-  position: relative;
-  background-color: $hint-color;
-  padding: 19px 17px;
-  color: #fff;
-  border-radius: 3;
-  width: 250px;
-  margin-top: 17px;
-  margin-left: 3.2%;
-  letter-spacing: 0.01rem;
+  width: 12px;
+  height: 12px;
 
   &::before {
-    top: -14px;
-    left: 0px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
     content: '';
-    height: 0;
-    width: 0;
+    display: block;
     position: absolute;
-    border-bottom: 15px solid $hint-color;
-    border-left: 0px solid transparent;
-    border-right: 12px solid transparent;
+    width: 8px;
+    top: 2px;
+    left: 2px;
+  }
+
+  &:checked::before {
+    background: #000;
   }
 }
 
-.btn-icon {
-  aspect-ratio: 1 / 1;
-  border: none;
-  outline: none;
-  background: #fff;
-  width: 20px;
+.hint {
+  display: flex;
+  position: relative;
 
-  img {
-    opacity: 0.7;
-    width: 100%;
+  .btn-icon {
+    border: none;
+    outline: none;
+    background: #fff;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    margin: 0 8px;
+
+    img {
+      opacity: 0.4;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+    }
+  }
+
+  .tlt {
+    z-index: 1000;
+    position: absolute;
+    background-color: $hint-color;
+    padding: 19px 17px;
+    color: #fff;
+    border-radius: 3;
+    width: 250px;
+    margin-top: 35px;
+    margin-left: 15px;
+    letter-spacing: 0.01rem;
+
+    &::before {
+      top: -14px;
+      left: 0px;
+      content: '';
+      height: 0;
+      width: 0;
+      position: absolute;
+      border-bottom: 15px solid $hint-color;
+      border-left: 0px solid transparent;
+      border-right: 12px solid transparent;
+    }
   }
 }
 
 .switch {
   display: inline-block;
-  height: 24px;
+  height: 20px;
   position: relative;
-  width: 40px;
-  margin: auto 10px;
+  width: 32px;
+  margin: auto 8px;
 
   input {
     display: none;
   }
 }
 
+.slider {
+  font-family: 'Futura PT Bold';
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  margin-left: 30px;
+}
+
 .slide {
   background-color: #d5d5d5;
-  border-radius: 24px;
+  border-radius: 20px;
   bottom: 0;
   cursor: pointer;
   left: 0;
@@ -122,41 +158,44 @@ input[type='radio']:checked::before {
   right: 0;
   top: 0;
   transition: 0.4s;
-}
 
-.slide:before {
-  background-color: #fff;
-  border-radius: 50%;
-  content: '';
-  height: 20px;
-  left: 2px;
-  position: absolute;
-  top: 2px;
-  transition: 0.4s;
-  width: 20px;
+  &::before {
+    background-color: #fff;
+    border-radius: 50%;
+    content: '';
+    height: 16px;
+    left: 2px;
+    position: absolute;
+    top: 2px;
+    transition: 0.4s;
+    width: 16px;
+  }
 }
 
 input:checked + .slide {
   background-color: $slider-color;
 }
 
-input:checked + .slide:before {
-  transform: translateX(16px);
-}
-
-.slider {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  height: 100px;
+input:checked + .slide::before {
+  transform: translateX(12px);
 }
 
 .checked-title {
   color: #999;
 }
 
+.summ {
+  border-radius: 15px;
+  outline: none;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+  width: 150px;
+  margin-left: 30px;
+  margin-right: 8px;
+}
+
 .details {
   background: $det-color;
-  width: 300px;
-  height: 200px;
+  margin: 25px 15px;
+  padding: 20px 30px;
 }

@@ -23,9 +23,7 @@ const Hint = () => {
       >
         <img src={toggle ? close : info} alt="" />
       </button>
-      <div style={{ position: 'absolute' }}>
-        {(toggle || (!toggle && enter)) && <div className="tlt">{_MROT}</div>}
-      </div>
+      {(toggle || (!toggle && enter)) && <div className="tlt">{_MROT}</div>}
     </div>
   )
 }
